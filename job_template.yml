@@ -1,0 +1,12 @@
+- name: Create Ping job template
+  job_template:
+    name: "Ping"
+    job_type: "run"
+    #organization: "Default"
+    inventory: "Local"
+    project: "test-job-template"
+    playbook: "ping.yml"
+    state: "present"
+    #controller_config_file: "~/tower_cli.cfg"
+    #survey_enabled: yes
+    #survey_spec: "{{ lookup('file', 'my_survey.json') }}"
