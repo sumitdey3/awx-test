@@ -1,0 +1,27 @@
+---
+- name: Get Ansible Inventory Groups for a Host
+  hosts: "{{ groups[input_sid] }}"
+  gather_facts: no
+  # vars:
+  #   input_sid: "web_servers"
+
+  tasks:
+    - name: Initialize list for host groups
+      set_fact:
+        host_groups: []
+
+    - name: Get inventory groups for the hosts belonging to the input group
+      set_fact:
+        host_groups: "{{ host_groups + hostvars[item].group_names }}"
+      loop: "{{ groups[input_sid] }}"
+      when: hostvars[item].group_names is defined
+
+    - name: Filter inventory groups of the format "DB_<numeric>"
+      set_fact:
+        filtered_groups: "{{ host_groups | flatten | unique | select('match', '^DB_[0-9]+$') | list }}"
+      run_once: true
+
+    - name: Debug output of unique DB_<number> groups
+      debug:
+        msg: "System Numbers for hosts belonging to the group '{{ input_sid }}' are: {{ filtered_groups }}"    # changed filtered_groups to numeric_groups to formatted_groups
+      run_once: true
