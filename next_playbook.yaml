@@ -1,0 +1,9 @@
+---
+- name: Retrieve ansible_host variable from inventory
+  hosts: "{{ db_group_name }}"
+  gather_facts: false 
+  tasks:
+    - name: Display ansible_host variable
+      debug:
+        msg: "ansible_host for {{ inventory_hostname }} is {{ ansible_host }}"
+        # var: ansible_host
