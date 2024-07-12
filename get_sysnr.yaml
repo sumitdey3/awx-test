@@ -19,9 +19,9 @@
     - name: Filter inventory groups of the format "DB_<numeric>"
       set_fact:
         filtered_groups: "{{ host_groups | flatten | unique | select('match', '^DB_[0-9]+$') | list }}"
-      run_once: true
+      #run_once: true
 
     - name: Debug output of unique DB_<number> groups
       debug:
         msg: "System Numbers for hosts belonging to the group '{{ input_sid }}' are: {{ filtered_groups }}"    # changed filtered_groups to numeric_groups to formatted_groups
-      run_once: true
+      #run_once: true
