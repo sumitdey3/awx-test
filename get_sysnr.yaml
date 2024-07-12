@@ -21,6 +21,10 @@
         filtered_groups: "{{ host_groups | flatten | unique | select('match', '^DB_[0-9]+$') | list }}"
       #run_once: true
 
+    - name: Debug variable type
+      debug:
+        msg: "Variable 'filtered_groups' is of type {{ filtered_groups | type_debug }}"
+    
     - name: Debug output of unique DB_<number> groups
       debug:
         msg: "System Numbers for hosts belonging to the group '{{ input_sid }}' are: {{ filtered_groups }}"    # changed filtered_groups to numeric_groups to formatted_groups
